@@ -1,21 +1,28 @@
 import { create } from "zustand";
 
-interface UIStore {
-  isCartOpen: boolean;
+interface UIState {
+  cartOpen: boolean;
+
   openCart: () => void;
   closeCart: () => void;
   toggleCart: () => void;
 }
 
-export const useUIStore = create<UIStore>((set) => ({
-  isCartOpen: false,
+export const useUIStore = create<UIState>((set) => ({
+  cartOpen: false,
 
-  openCart: () => set({ isCartOpen: true }),
+  openCart: () =>
+    set({
+      cartOpen: true,
+    }),
 
-  closeCart: () => set({ isCartOpen: false }),
+  closeCart: () =>
+    set({
+      cartOpen: false,
+    }),
 
   toggleCart: () =>
     set((state) => ({
-      isCartOpen: !state.isCartOpen,
+      cartOpen: !state.cartOpen,
     })),
 }));

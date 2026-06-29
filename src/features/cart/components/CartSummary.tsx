@@ -33,9 +33,6 @@ export default function CartSummary() {
         <span>₹{total}</span>
       </div>
 
-      <button className="w-full rounded-xl bg-red-700 py-4 font-semibold text-white transition hover:bg-red-800">
-        Proceed to Checkout
-      </button>
     </div>
   );
 }
