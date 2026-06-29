@@ -1,0 +1,11 @@
+type BadgeProps = {
+  text: string;
+};
+
+export default function Badge({ text }: BadgeProps) {
+  return (
+    <span className="rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">
+      {text}
+    </span>
+  );
+}
