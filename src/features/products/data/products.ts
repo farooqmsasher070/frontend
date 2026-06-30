@@ -68,6 +68,7 @@ storage:
     rating: 4.9,
     reviews: 77,
     discount: 17,
+    category: "Seafood",
     image: "https://picsum.photos/500?4",
     description:
   "Fresh premium chicken breast sourced daily from certified farms.",

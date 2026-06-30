@@ -13,6 +13,8 @@ export default function ProductsPage() {
     useSearchParams();
   const searchQuery =
     searchParams.get("search") ?? "";
+  const categoryQuery =
+    searchParams.get("category") ?? "All";
 
   const {
   products,
@@ -24,26 +26,44 @@ export default function ProductsPage() {
     maxPrice,
     sortBy,
     setSortBy,
-} = useProducts(searchQuery);
+} = useProducts(searchQuery, categoryQuery);
 
   useEffect(() => {
     setSearch(searchQuery);
-  }, [searchQuery, setSearch]);
+    setCategory(categoryQuery);
+  }, [
+    categoryQuery,
+    searchQuery,
+    setCategory,
+    setSearch,
+  ]);
 
-  const handleSearchChange = (value: string) => {
-    setSearch(value);
-
+  const updateQueryParam = (
+    key: "search" | "category",
+    value: string,
+    defaultValue = ""
+  ) => {
     const nextParams = new URLSearchParams(
       searchParams
     );
 
-    if (value.trim()) {
-      nextParams.set("search", value);
+    if (value.trim() && value !== defaultValue) {
+      nextParams.set(key, value);
     } else {
-      nextParams.delete("search");
+      nextParams.delete(key);
     }
 
     setSearchParams(nextParams);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    updateQueryParam("search", value);
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setCategory(value);
+    updateQueryParam("category", value, "All");
   };
 
   return (
@@ -75,7 +95,7 @@ export default function ProductsPage() {
 <aside className="space-y-6">
   <CategoryFilter
     value={category}
-    onChange={setCategory}
+    onChange={handleCategoryChange}
   />
 
   <PriceFilter

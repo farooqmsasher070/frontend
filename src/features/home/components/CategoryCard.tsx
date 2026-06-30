@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type Props = {
   name: string;
   emoji: string;
@@ -9,9 +11,15 @@ export default function CategoryCard({
   emoji,
   color,
 }: Props) {
+  const href = `/products?category=${encodeURIComponent(
+    name
+  )}`;
+
   return (
-    <div
+    <Link
+      to={href}
       className={`${color}
+      block
       rounded-2xl
       p-8
       text-center
@@ -25,6 +33,6 @@ export default function CategoryCard({
       <h3 className="mt-4 text-xl font-bold">
         {name}
       </h3>
-    </div>
+    </Link>
   );
 }
