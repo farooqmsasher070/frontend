@@ -12,11 +12,45 @@ export default function AddressesPage() {
   const { items } = useAddresses();
 
   const add = useAddressStore((state) => state.add);
-
+  const update = useAddressStore((state) => state.update);
+  const remove = useAddressStore((state) => state.remove);
+  const setDefault = useAddressStore(
+    (state) => state.setDefault
+  );
   const [open, setOpen] = useState(false);
 
   const [selectedAddress, setSelectedAddress] =
     useState<Address | undefined>();
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedAddress(undefined);
+  };
+
+  const handleEdit = (address: Address) => {
+    setSelectedAddress(address);
+    setOpen(true);
+  };
+
+  const handleDelete = (id: number) => {
+    const shouldDelete = window.confirm(
+      "Delete this address?"
+    );
+
+    if (shouldDelete) {
+      remove(id);
+    }
+  };
+
+  const handleSave = (address: Address) => {
+    if (selectedAddress) {
+      update(address);
+    } else {
+      add(address);
+    }
+
+    handleClose();
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -83,6 +117,9 @@ export default function AddressesPage() {
               <AddressCard
                 key={address.id}
                 address={address}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onSetDefault={setDefault}
               />
             ))}
 
@@ -94,11 +131,8 @@ export default function AddressesPage() {
         {open && (
           <AddressModal
             address={selectedAddress}
-            onClose={() => setOpen(false)}
-            onSave={(address) => {
-              add(address);
-              setOpen(false);
-            }}
+            onClose={handleClose}
+            onSave={handleSave}
           />
         )}
 

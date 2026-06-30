@@ -11,10 +11,16 @@ import type { Address } from "../types/address";
 
 type Props = {
   address: Address;
+  onEdit: (address: Address) => void;
+  onDelete: (id: number) => void;
+  onSetDefault: (id: number) => void;
 };
 
 export default function AddressCard({
   address,
+  onEdit,
+  onDelete,
+  onSetDefault,
 }: Props) {
   const isHome =
     address.label.toLowerCase() === "home";
@@ -102,9 +108,20 @@ export default function AddressCard({
       </div>
 
       {/* Footer */}
-      <div className="mt-6 flex gap-3 border-t pt-5">
+      <div className="mt-6 flex flex-wrap gap-3 border-t pt-5">
+
+        {!address.isDefault && (
+          <button
+            onClick={() => onSetDefault(address.id)}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-green-200 py-2 text-green-700 transition hover:bg-green-50"
+          >
+            <Star size={18} />
+            Set Default
+          </button>
+        )}
 
         <button
+          onClick={() => onEdit(address)}
           className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-gray-300 py-2 transition hover:bg-gray-100"
         >
           <Pencil size={18} />
@@ -112,6 +129,7 @@ export default function AddressCard({
         </button>
 
         <button
+          onClick={() => onDelete(address.id)}
           className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-red-600 py-2 text-white transition hover:bg-red-700"
         >
           <Trash2 size={18} />

@@ -13,7 +13,10 @@ import {
   User,
 } from "lucide-react";
 
-import { useState } from "react";
+import {
+  useState,
+  type FormEvent,
+} from "react";
 
 import { useCartStore } from "../../store/cartStore";
 import { useUIStore } from "../../store/uiStore";
@@ -22,6 +25,8 @@ import { useAuthStore } from "../../features/auth/store/authStore";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] =
+    useState("");
   const [showProfileMenu, setShowProfileMenu] =
   useState(false);
 
@@ -42,6 +47,20 @@ export default function Navbar() {
     isAuthenticated,
     logout,
   } = useAuthStore();
+
+  const handleSearch = (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+
+    const query = searchQuery.trim();
+
+    navigate(
+      query
+        ? `/products?search=${encodeURIComponent(query)}`
+        : "/products"
+    );
+  };
 
   return (
     <header className="sticky top-0 z-30 bg-white shadow-sm">
@@ -107,7 +126,10 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
 
           {/* Search */}
-          <div className="hidden items-center rounded-lg border px-3 py-2 lg:flex">
+          <form
+            onSubmit={handleSearch}
+            className="hidden items-center rounded-lg border px-3 py-2 lg:flex"
+          >
             <Search
               size={18}
               className="text-gray-500"
@@ -115,10 +137,14 @@ export default function Navbar() {
 
             <input
               type="text"
+              value={searchQuery}
+              onChange={(event) =>
+                setSearchQuery(event.target.value)
+              }
               placeholder="Search products..."
               className="ml-2 w-56 bg-transparent outline-none"
             />
-          </div>
+          </form>
 
           {/* Wishlist */}
           <Link

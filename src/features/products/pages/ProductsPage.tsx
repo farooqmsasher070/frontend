@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import SearchBar from "../components/shop/SearchBar";
 import SortDropdown from "../components/shop/SortDropdown";
 import CategoryFilter from "../components/shop/CategoryFilter";
@@ -6,6 +9,11 @@ import PriceFilter from "../components/shop/PriceFilter";
 import { useProducts } from "../hooks/useProducts";
 
 export default function ProductsPage() {
+  const [searchParams, setSearchParams] =
+    useSearchParams();
+  const searchQuery =
+    searchParams.get("search") ?? "";
+
   const {
   products,
   category,
@@ -16,7 +24,27 @@ export default function ProductsPage() {
     maxPrice,
     sortBy,
     setSortBy,
-} = useProducts();
+} = useProducts(searchQuery);
+
+  useEffect(() => {
+    setSearch(searchQuery);
+  }, [searchQuery, setSearch]);
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+
+    const nextParams = new URLSearchParams(
+      searchParams
+    );
+
+    if (value.trim()) {
+      nextParams.set("search", value);
+    } else {
+      nextParams.delete("search");
+    }
+
+    setSearchParams(nextParams);
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
@@ -34,7 +62,7 @@ export default function ProductsPage() {
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:justify-between">
         <SearchBar
           value={search}
-          onChange={setSearch}
+          onChange={handleSearchChange}
         />
 
         <SortDropdown

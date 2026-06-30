@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import type { Address } from "../types/address";
 
 type Props = {
@@ -37,9 +37,7 @@ export default function AddressForm({
     }));
   };
 
-  const handleSubmit = (
-    e: React.FormEvent
-  ) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSave(form);
   };
@@ -70,6 +68,7 @@ export default function AddressForm({
       <input
         className="w-full rounded-xl border p-3"
         placeholder="Full Name"
+        required
         value={form.fullName}
         onChange={(e) =>
           update("fullName", e.target.value)
@@ -79,6 +78,7 @@ export default function AddressForm({
       <input
         className="w-full rounded-xl border p-3"
         placeholder="Phone Number"
+        required
         value={form.phone}
         onChange={(e) =>
           update("phone", e.target.value)
@@ -88,6 +88,7 @@ export default function AddressForm({
       <input
         className="w-full rounded-xl border p-3"
         placeholder="Address Line 1"
+        required
         value={form.addressLine1}
         onChange={(e) =>
           update(
@@ -113,6 +114,7 @@ export default function AddressForm({
         <input
           className="rounded-xl border p-3"
           placeholder="City"
+          required
           value={form.city}
           onChange={(e) =>
             update("city", e.target.value)
@@ -122,6 +124,7 @@ export default function AddressForm({
         <input
           className="rounded-xl border p-3"
           placeholder="State"
+          required
           value={form.state}
           onChange={(e) =>
             update("state", e.target.value)
@@ -132,6 +135,7 @@ export default function AddressForm({
       <input
         className="w-full rounded-xl border p-3"
         placeholder="Postal Code"
+        required
         value={form.postalCode}
         onChange={(e) =>
           update(
