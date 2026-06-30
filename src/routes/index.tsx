@@ -12,6 +12,8 @@ import OrderSuccessPage from "../features/orders/pages/OrderSuccessPage";
 import OrdersPage from "../features/orders/pages/OrdersPage";
 import OrderDetailsPage from "../features/orders/pages/OrderDetailsPage";
 import LoginPage from "../features/auth/pages/LoginPage";
+import RegisterPage from "../features/auth/pages/RegisterPage";
+import ForgotPasswordPage from "../features/auth/pages/ForgotPasswordPage";
 import AddressesPage from "../features/address/pages/AddressesPage";
 
 export const router = createBrowserRouter([
@@ -23,42 +25,58 @@ export const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-       {
-  path: "/products/:id",
-  element: <ProductDetailsPage />,
-},
-{
-  path: "/products",
-  element: <ProductsPage />,
-},{
-  path: "/wishlist",
-  element: <WishlistPage />,
-},{
-  path: "/checkout",
-  element: <CheckoutPage />,
-},{
-  path: "/checkout/shipping",
-  element: <ShippingPage />,
-},{
-  path: "/checkout/payment",
-  element: <PaymentPage />,
-},{
-  path: "/order-success",
-  element: <OrderSuccessPage />,
-},{
-  path: "/orders",
-  element: <OrdersPage />,
-},{
-  path: "/orders/:id",
-  element: <OrderDetailsPage />,
-},{
-  path: "/login",
-  element: <LoginPage />,
-},{
-  path: "/account/addresses",
-  element: <AddressesPage />,
-}
+      {
+        path: "products/:id",
+        element: <ProductDetailsPage />,
+      },
+      {
+        path: "products",
+        element: <ProductsPage />,
+      },
+      {
+        path: "wishlist",
+        element: <WishlistPage />,
+      },
+      {
+        path: "checkout",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "checkout/shipping",
+        element: <ShippingPage />,
+      },
+      {
+        path: "checkout/payment",
+        element: <PaymentPage />,
+      },
+      {
+        path: "order-success",
+        element: <OrderSuccessPage />,
+      },
+      {
+        path: "orders",
+        element: <OrdersPage />,
+      },
+      {
+        path: "orders/:id",
+        element: <OrderDetailsPage />,
+      },
+      {
+        path: "account/addresses",
+        element: <AddressesPage />,
+      },
     ],
   },
- 
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage />,
+  },
 ]);

@@ -1,9 +1,17 @@
+import { useEffect } from "react";
+import { RouterProvider } from "react-router-dom";
+
+import { authService } from "./features/auth/services/authService";
+import { router } from "./routes";
+
 function App() {
-  return (
-    <div className="min-h-screen">
-      <h1>🥩 Bangalore Meat Store</h1>
-    </div>
-  );
+  useEffect(() => {
+    authService.restoreSession().catch(() => {
+      // ignore restore errors
+    });
+  }, []);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
