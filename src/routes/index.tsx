@@ -9,6 +9,10 @@ import CheckoutPage from "../features/checkout/pages/CheckoutPage";
 import ShippingPage from "../features/shipping/pages/ShippingPage";
 import PaymentPage from "../features/payment/pages/PaymentPage";
 import OrderSuccessPage from "../features/orders/pages/OrderSuccessPage";
+import OrdersPage from "../features/orders/pages/OrdersPage";
+import OrderDetailsPage from "../features/orders/pages/OrderDetailsPage";
+import LoginPage from "../features/auth/pages/LoginPage";
+import AddressesPage from "../features/address/pages/AddressesPage";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +45,18 @@ export const router = createBrowserRouter([
 },{
   path: "/order-success",
   element: <OrderSuccessPage />,
+},{
+  path: "/orders",
+  element: <OrdersPage />,
+},{
+  path: "/orders/:id",
+  element: <OrderDetailsPage />,
+},{
+  path: "/login",
+  element: <LoginPage />,
+},{
+  path: "/account/addresses",
+  element: <AddressesPage />,
 }
     ],
   },
