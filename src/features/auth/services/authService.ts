@@ -44,7 +44,7 @@ export const authService = {
 
       return {
         id: currentUser.userId,
-        fullName: currentUser.username,
+        fullName: email,
         email,
         phone: "",
         token:
@@ -119,30 +119,37 @@ export const authService = {
     }
 
     try {
-      const [currentUser, session] = await Promise.all([
-        getCurrentUser(),
-        fetchAuthSession(),
-      ]);
+      // First check if there's a valid session
+      const session = await fetchAuthSession();
+      
+      const hasActiveSession = Boolean(
+        session.tokens?.idToken || session.tokens?.accessToken
+      );
 
-      if (!session?.isSignedIn) {
+      if (!hasActiveSession) {
         return null;
       }
 
+      // Only try to get current user if we have an active session
+      const currentUser = await getCurrentUser();
+
+      const resolvedEmail =
+        typeof currentUser.username === "string" && currentUser.username.includes("@")
+          ? currentUser.username
+          : "";
+
       return {
         id: currentUser.userId,
-        fullName: currentUser.username,
-        email:
-          (currentUser.attributes?.email as string) ||
-          currentUser.username,
-        phone:
-          (currentUser.attributes?.phone_number as string) ||
-          "",
+        fullName: currentUser.signInDetails?.loginIds?.[0] || resolvedEmail || currentUser.username,
+        email: resolvedEmail || currentUser.username,
+        phone: "",
         token:
           session.tokens?.idToken?.toString() ||
           session.tokens?.accessToken?.toString() ||
           "",
       };
-    } catch {
+    } catch (error) {
+      console.error("Session restoration error:", error);
       return null;
     }
   },

@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "mobile-app",
+    "slug": "mobile-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.mobileapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.mobileapp"
+    },
+    "extra": {
+      "awsRegion": "us-east-1",
+      "cognitoUserPoolId": "us-east-1_7NJl2HwEx",
+      "cognitoUserPoolClientId": "7i1d4puv12dvjpr60qg8ifa9d"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
